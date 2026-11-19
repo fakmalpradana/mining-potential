@@ -1,0 +1,28 @@
+# Data lives on the shared Drive, not in git (see data/README.md)
+data/raw/*
+!data/raw/README.md
+data/**/*.tif
+data/**/*.tiff
+data/**/*.gpkg
+data/**/*.parquet
+data/**/*.zip
+data/**/*.xyz
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.pytest_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+~$*

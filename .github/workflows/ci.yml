@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint (ruff)
+        run: ruff check src tests
+
+      - name: Notebooks are valid and have no outputs
+        run: python tests/check_notebooks.py
+
+      - name: Unit tests (models.py interface, contract checker)
+        run: pytest -q
+
+      - name: Data contract check on committed hand-over files
+        run: python src/check_contract.py --all data/processed
